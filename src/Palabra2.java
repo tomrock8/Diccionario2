@@ -29,12 +29,12 @@ public class Palabra2 {
             this.lenguas[0] = 'E';
             this.lenguas[1] = 'F';
             this.lenguas[2] = 'P';
-            this.trad = new Vector<String>();
-
+            this.trad = new Vector<String>(3);
+            this.trad.setSize(3);
         } else {
             this.lenguas = lenguas;
-            this.trad = new Vector<String>();
-
+            this.trad = new Vector<String>(lenguas.length);
+            this.trad.setSize(lenguas.length);
         }
 
     }
@@ -47,10 +47,11 @@ public class Palabra2 {
 
         if (pos != -1) {
             try {
-                if (trad.get(pos) != null) {
+                //if (trad.get(pos) != null) {
                     trad.setElementAt(t, pos);
-                }
+                //}
             } catch (IndexOutOfBoundsException e) {
+                System.out.println("CATCH SETTRAD");
                 trad.add(pos, t);
             }
 
@@ -79,11 +80,16 @@ public class Palabra2 {
         return origen;
     }
 
-    public String getTrad(char l) {
+    public String getTraduccion(char l) {
         int pos = posicionTrad(l);
 
-        if (pos != -1) {
-            return trad.get(pos);
+        try {
+            if (pos != -1) {
+                return trad.get(pos);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("CATCH GETTRADUCCION");
+            return null;
         }
 
         return null;
@@ -91,10 +97,13 @@ public class Palabra2 {
 
     public void escribeInfo() {
         String res = origen + ":";
-        for(String s : trad){
-            res += s + ":";
+        for (String s : trad) {
+            if(s != null)
+                res += s + ":";
         }
-        System.out.println(res.substring(0, res.length()-1));
+        res = res.replace("::", ":");
+        res = res.substring(0, res.length() - 1);
+        System.out.println(res);
     }
 
 }

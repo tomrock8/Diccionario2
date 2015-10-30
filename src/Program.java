@@ -1,35 +1,32 @@
-
 public class Program {
     public static void main(String[] args) {
-        String lexeme=new String("quiet");
-        Palabra2 word=new Palabra2(lexeme,null);
-        String[] meaning=new String[4];
-        char[] language=new char[4];
-        meaning[0]=new String("tranquilo");
-        language[0]='E';
-        meaning[1]=new String("calme");
-        language[1]='F';
-        meaning[2]=new String("quieto");
-        language[2]='P';
-        meaning[3]=new String("ancora");
-        language[3]='I';
-        int pos=-1;
-        for(int i=0;i<language.length;i++){
-         pos=word.setTrad(meaning[i],language[i]);
-         System.out.println("traduccion a "+language[i]+"; acepcion "+meaning[i]+" -> "+pos);
+        String lexeme = new String("soul");
+        char[] idiomas = { 'F', 'I', 'E', 'C', 'H' };
+        Palabra2 word = new Palabra2(lexeme, idiomas);
+        String[] meaning = new String[5];
+        char[] language = new char[5];
+        meaning[0] = new String("coeur");
+        language[0] = 'F';
+        meaning[1] = new String("alma");
+        language[1] = 'E';
+        meaning[2] = new String("ziel");
+        language[2] = 'H';
+        meaning[3] = new String("conciencia");
+        language[3] = 'E';
+        meaning[4] = new String("anima");
+        language[4] = 'I';
+        int pos = -1;
+        for (int i = 0; i < language.length; i++) {
+            pos = word.setTrad(meaning[i], language[i]);
+            System.out.println("traduccion a " + language[i] + "; acepcion " + meaning[i] + " -> " + pos);
         }
-        word.escribeInfo();
-        meaning[0]=new String("tranquilo");
-        language[0]='P';
-        meaning[1]=new String("tranquillo");
-        language[1]='I';
-        meaning[2]=new String("calme");
-        language[2]='F';
-        meaning[3]=new String("callado");
-        language[3]='E';
-        for(int i=0;i<language.length;i++){
-         pos=word.setTrad(meaning[i],language[i]);
-         System.out.println("traduccion a "+language[i]+"; acepcion "+meaning[i]+" -> "+pos);
+        String trad = null;
+        for (int i = 0; i < idiomas.length; i++) {
+            trad = word.getTraduccion(idiomas[i]);
+            if (trad != null)
+                System.out.println("Traduccion a " + idiomas[i] + " -> " + trad);
+            else
+                System.out.println("No tiene traduccion a " + idiomas[i]);
         }
         word.escribeInfo();
 
