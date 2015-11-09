@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Vector;
 
 //DNI 15418068 GONZALEZ COBO, ANGEL
@@ -123,6 +122,12 @@ public class Palabra2 {
         return origen;
     }
 
+    /**
+     * TODO
+     * 
+     * @param l
+     * @return
+     */
     public String getTraduccion(char l) {
         int pos = posicionTrad(l);
 
@@ -147,7 +152,8 @@ public class Palabra2 {
     }
 
     /**
-     * Funcion para devolver la Palabra2 con el formato especificado
+     * Funcion para devolver la Palabra2 con el formato especificado. Util para
+     * comparaciones.
      * 
      * @return String con la palabra separada con ":" con cada traduccion
      */
@@ -155,9 +161,9 @@ public class Palabra2 {
         String result = "";
 
         result += origen;
-        for(int i = 0; i < trad.size(); i++){
+        for (int i = 0; i < trad.size(); i++) {
             result += ":";
-            if(trad.get(i) != null){
+            if (trad.get(i) != null) {
                 result += trad.get(i);
             }
         }

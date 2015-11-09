@@ -1,4 +1,3 @@
-
 //DNI 15418068 GONZALEZ COBO, ANGEL
 
 import java.io.BufferedReader;
@@ -47,7 +46,7 @@ public class DiccVector implements Diccionario {
             // LINEAS CON LAS PALABRAS
             linea = br.readLine();
             while (linea != null) {
-                palabra = construyePalabra(linea, CVectorToCArray(lenguas));
+                palabra = creaPalabra(linea, CVectorToCArray(lenguas));
                 inserta(palabra);
                 linea = br.readLine();
             }
@@ -58,6 +57,13 @@ public class DiccVector implements Diccionario {
         }
     }
 
+    /**
+     * Conversor de la clase Vector<Character> a un array de Char
+     * 
+     * @param vector
+     *            Vector a convertir
+     * @return char[] resultado de convertir el vector
+     */
     private char[] CVectorToCArray(Vector<Character> vector) {
         char[] array = new char[vector.size()];
 
@@ -67,7 +73,16 @@ public class DiccVector implements Diccionario {
         return array;
     }
 
-    private Palabra2 construyePalabra(String linea, char[] lenguas) {
+    /**
+     * Metodo para tratar la linea completa y crear una palabra.
+     * 
+     * @param linea
+     *            String con la linea leida del archivo.
+     * @param lenguas
+     *            Lenguas de traduccion de la linea.
+     * @return Palabra resultante de la linea con las traducciones.
+     */
+    private Palabra2 creaPalabra(String linea, char[] lenguas) {
         Palabra2 p = null;
         String[] splt;
 
@@ -127,8 +142,7 @@ public class DiccVector implements Diccionario {
                             dicc.add(p);
                             inserted = true;
                         }
-                    }
-                    else{
+                    } else {
                         if (!inserted) {
                             dicc.add(p);
                             inserted = true;
@@ -181,7 +195,13 @@ public class DiccVector implements Diccionario {
 
     @Override
     public void visualiza(int j) {
-        // TODO Auto-generated method stub
+        if (j < dicc.size()) {
+            for (int i = 0; i < j; i++) {
+                dicc.get(i).escribeInfo();
+            }
+        } else {
+            visualiza();
+        }
 
     }
 

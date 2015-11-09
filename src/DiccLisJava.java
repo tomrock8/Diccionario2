@@ -1,11 +1,24 @@
 //DNI 15418068 GONZALEZ COBO, ANGEL
 
-public class DiccLisJava implements Diccionario{
+import java.util.ArrayList;
+import java.util.Vector;
 
+public class DiccLisJava implements Diccionario {
+
+    private int nlenguas;
+    private Vector<Character> lenguas;
+    private ArrayList<Palabra2> dicc;
+
+    public DiccLisJava(){
+        nlenguas = -1;
+        lenguas = new Vector<Character>();
+        dicc = new ArrayList<Palabra2>();
+    }
+    
     @Override
     public void leeDiccionario(String f) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -35,19 +48,19 @@ public class DiccLisJava implements Diccionario{
     @Override
     public void visualiza() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void visualiza(int j) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void visualiza(int j, char l) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
