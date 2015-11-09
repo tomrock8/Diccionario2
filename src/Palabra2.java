@@ -39,6 +39,15 @@ public class Palabra2 {
 
     }
 
+    /**
+     * El string t sera puesto como traduccion de la lengua l
+     * 
+     * @param t
+     *            String con la traduccion de la palabra
+     * @param l
+     *            Char con la lengua origen
+     * @return int con la posicion en la que se ha guardado
+     */
     public int setTrad(String t, char l) {
         if (lenguas == null || t == null)
             return -1;
@@ -47,9 +56,9 @@ public class Palabra2 {
 
         if (pos != -1) {
             try {
-                //if (trad.get(pos) != null) {
-                    trad.setElementAt(t, pos);
-                //}
+                // if (trad.get(pos) != null) {
+                trad.setElementAt(t, pos);
+                // }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("CATCH SETTRAD");
                 trad.add(pos, t);
@@ -58,6 +67,39 @@ public class Palabra2 {
         }
 
         return pos;
+    }
+
+    /**
+     * Comprueba las traducciones de otra palabra. Modifica las traducciones de
+     * la misma lengua.
+     * 
+     * @param p
+     *            Palabra nueva que comprobar
+     * @return true si modifica alguna traduccion
+     */
+    public boolean modTrad(Palabra2 p) {
+        int mod = -1;
+        boolean result = false;
+
+        if (p != null) {
+            // COMPROBAR SI SON EXACTAMENTE IGUALES
+            if (toString().equals(p.toString()))
+                return false;
+
+            for (int i = 0; i < lenguas.length; i++) {
+                for (int j = 0; j < p.getLenguas().length; j++)
+                    if (lenguas[i] == p.getLenguas()[j]) {
+                        char l = lenguas[i];
+                        String newTrad = p.getTraduccion(l);
+                        mod = setTrad(newTrad, l);
+                        if (mod != -1)
+                            result = true;
+                    }
+            }
+        }
+
+        return result;
+
     }
 
     /**
@@ -95,15 +137,28 @@ public class Palabra2 {
         return null;
     }
 
+    public char[] getLenguas() {
+        return lenguas;
+    }
+
     public void escribeInfo() {
+        System.out.println(toString());
+    }
+
+    /**
+     * Funcion para devolver la Palabra2 con el formato especificado
+     * 
+     * @return String con la palabra separada con ":" con cada traduccion
+     */
+    public String toString() {
         String res = origen + ":";
         for (String s : trad) {
-            if(s != null)
+            if (s != null)
                 res += s + ":";
         }
         res = res.replace("::", ":");
         res = res.substring(0, res.length() - 1);
-        System.out.println(res);
+        return res;
     }
 
 }
