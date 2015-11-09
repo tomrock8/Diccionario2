@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Vector;
 
 //DNI 15418068 GONZALEZ COBO, ANGEL
@@ -151,14 +152,16 @@ public class Palabra2 {
      * @return String con la palabra separada con ":" con cada traduccion
      */
     public String toString() {
-        String res = origen + ":";
-        for (String s : trad) {
-            if (s != null)
-                res += s + ":";
+        String result = "";
+
+        result += origen;
+        for(int i = 0; i < trad.size(); i++){
+            result += ":";
+            if(trad.get(i) != null){
+                result += trad.get(i);
+            }
         }
-        res = res.replace("::", ":");
-        res = res.substring(0, res.length() - 1);
-        return res;
+        return result;
     }
 
 }

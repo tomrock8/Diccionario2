@@ -1,3 +1,4 @@
+
 //DNI 15418068 GONZALEZ COBO, ANGEL
 
 import java.io.BufferedReader;
@@ -76,7 +77,10 @@ public class DiccVector implements Diccionario {
         p = new Palabra2(origen, lenguas);
         for (int i = 1; i < splt.length; i++) {
             if (splt[i].equalsIgnoreCase("") == false) {
-                p.setTrad(splt[i], lenguas[i]);
+                String palabra = splt[i];
+                char l = lenguas[i - 1];
+
+                p.setTrad(palabra, l);
             }
         }
         return p;
@@ -90,13 +94,13 @@ public class DiccVector implements Diccionario {
             if (p.getOrigen().equalsIgnoreCase("") == false) {
                 for (int i = 0; i < dicc.size(); i++) {
                     if (dicc.get(i) != null) {
-                      //COMPROBAR SI SON EXACTAMENTE IGUALES
-                        if(p.toString().equals(dicc.get(i).toString()))
+                        // COMPROBAR SI SON EXACTAMENTE IGUALES
+                        if (p.toString().equals(dicc.get(i).toString()))
                             return false;
-                        
+
                         if (dicc.get(i).getOrigen().equalsIgnoreCase(p.getOrigen())) {
                             found = true;
-                            
+
                             dicc.get(i).modTrad(p);
                         }
                     }
@@ -107,10 +111,26 @@ public class DiccVector implements Diccionario {
                     int last = 0; // para guardar la posicion donde he
                                   // insertado.
                     inserted = false;
-                    for (int i = 0; i < dicc.size() && !inserted; i++) {
-                        if (dicc.get(i) == null) {
-                            dicc.setElementAt(p, i); // lo inserto.
-                            last = i;
+
+                    if (dicc.size() != 0) {
+                        for (int i = 0; i < dicc.size(); i++) {
+                            if (!inserted) {
+                                if (dicc.get(i) == null) {
+                                    dicc.setElementAt(p, i); // lo inserto.
+                                    last = i;
+                                    inserted = true;
+                                }
+                            }
+                        }
+
+                        if (!inserted) {
+                            dicc.add(p);
+                            inserted = true;
+                        }
+                    }
+                    else{
+                        if (!inserted) {
+                            dicc.add(p);
                             inserted = true;
                         }
                     }
@@ -131,6 +151,7 @@ public class DiccVector implements Diccionario {
             }
         }
         return inserted;
+
     }
 
     @Override
@@ -153,7 +174,8 @@ public class DiccVector implements Diccionario {
 
     @Override
     public void visualiza() {
-        // TODO Auto-generated method stub
+        for (Palabra2 p : dicc)
+            p.escribeInfo();
 
     }
 
