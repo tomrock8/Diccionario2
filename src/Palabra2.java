@@ -56,11 +56,9 @@ public class Palabra2 {
 
 		if (pos != -1) {
 			try {
-				// if (trad.get(pos) != null) {
 				trad.setElementAt(t, pos);
-				// }
 			} catch (IndexOutOfBoundsException e) {
-				System.out.println("CATCH SETTRAD");
+				// System.out.println("CATCH SETTRAD");
 				trad.add(pos, t);
 			}
 
@@ -71,7 +69,9 @@ public class Palabra2 {
 
 	/**
 	 * Comprueba las traducciones de otra palabra. Modifica las traducciones de
-	 * la misma lengua.
+	 * la misma lengua. Creado para simplificar las llamadas desde las clases
+	 * externas, evitando asi repeticion de codigo innecesario y simplificando
+	 * comparaciones.
 	 * 
 	 * @param p
 	 *            Palabra nueva que comprobar
@@ -103,7 +103,8 @@ public class Palabra2 {
 	}
 
 	/**
-	 * For para obtener la posicion de la traduccion en el array
+	 * For para obtener la posicion de la traduccion en el array. Creado para
+	 * simplificar codigo.
 	 * 
 	 * @param l
 	 *            Lengua a buscar
@@ -123,10 +124,12 @@ public class Palabra2 {
 	}
 
 	/**
-	 * TODO
+	 * Devuelve la traduccion de una lengua de la palabra en cuestion.
 	 * 
 	 * @param l
-	 * @return
+	 *            Lengua de la traduccion.
+	 * @return String con la traduccion de dicha palabra. Devuelve "null" en
+	 *         caso que no exista.
 	 */
 	public String getTraduccion(char l) {
 		int pos = posicionTrad(l);
@@ -136,7 +139,7 @@ public class Palabra2 {
 				return trad.get(pos);
 			}
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("CATCH GETTRADUCCION");
+			// System.out.println("CATCH GETTRADUCCION");
 			return null;
 		}
 
@@ -153,7 +156,8 @@ public class Palabra2 {
 
 	/**
 	 * Metodo para obtener la informacion de una lengua en concreto de la
-	 * traduccion.
+	 * traduccion. Creado para hacer llamadas desde otra clase. Simplificacion
+	 * de codigo y ayuda a la depuracion.
 	 * 
 	 * @param l
 	 *            Letra de la lengua a mostrar
@@ -174,7 +178,7 @@ public class Palabra2 {
 
 	/**
 	 * Funcion para devolver la Palabra2 con el formato especificado. Util para
-	 * comparaciones.
+	 * comparaciones y depuracion.
 	 * 
 	 * @return String con la palabra separada con ":" con cada traduccion
 	 */

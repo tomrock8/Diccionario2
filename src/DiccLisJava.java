@@ -58,66 +58,84 @@ public class DiccLisJava implements Diccionario {
 		}
 	}
 
+	/*
+	 * Primero se comprueba si el parametro contiene valor. Despues se comprueba
+	 * que el origen de la palabra tenga valor. Se recorre el diccionario de
+	 * manera secuencial comparando los valores de las palabras de origen para
+	 * encontrar la misma palabra. Se comprueba que no sea exactamente la
+	 * palabra y la que ya esta almacenada. Si ya esta en el diccionario llama
+	 * una funcion donde se le pasan todas las traducciones y las modifica.
+	 * 
+	 * Si no esta en el diccionario se busca el primer hueco libre en caso que
+	 * el diccionario ya tenga elementos y se almacena. En caso que este vacio
+	 * se agrega en la primera posicion.
+	 * 
+	 * Posteriormente se ordena el diccionario con el metodo de la burbuja desde
+	 * el final del diccionario hasta el principio.
+	 * 
+	 */
 	@Override
 	public boolean inserta(Palabra2 p) {
-		boolean inserted = false;
+		boolean action = false;
+
 		if (p != null) {
 			if (p.getOrigen().equalsIgnoreCase("") == false) {
 				for (int i = 0; i < dicc.size(); i++) {
-					if (dicc.get(i) != null) {
+					if (dicc.get(i) != null && !action) {
+
 						// COMPROBAR SI SON EXACTAMENTE IGUALES
 						if (p.toString().equals(dicc.get(i).toString()))
 							return false;
 
+						// COMPROBAR SI EXISTE LA PALABRA
 						if (dicc.get(i).getOrigen()
 								.equalsIgnoreCase(p.getOrigen())) {
 							dicc.get(i).modTrad(p);
-							return true;
+							action = true;
 						}
 					}
 				}
 
-				// NO ESTA
-				int posicion = 0;
-				if (dicc.size() != 0) {
-					for (int i = 0; i < dicc.size(); i++) {
-						if (!inserted) {
-							if (dicc.get(i) == null) {
-								dicc.set(i, p);
-								posicion = i;
-								inserted = true;
+				if (!action) {
+
+					// NO EXISTE LA PALABRA
+					if (dicc.size() > 0) {
+						for (int i = 0; i < dicc.size(); i++) {
+							if (!action) {
+								if (dicc.get(i) == null) {
+									dicc.set(i, p);
+									action = true;
+								}
 							}
 						}
-					}
 
-					if (!inserted) {
-						dicc.add(p);
-						inserted = true;
-					}
-				} else {
-					// PRIMERA POSICION
-					if (!inserted) {
-						dicc.add(p);
-						inserted = true;
+						if (!action) {
+							dicc.add(p);
+							action = true;
+						}
+
+					} else {
+						// PRIMERA POSICION DEL DICCIONARIO
+						if (!action) {
+							dicc.add(p);
+							action = true;
+						}
 					}
 				}
 
-				int k = posicion;
-				while (k > 0) {
-					if (dicc.get(k).getOrigen()
-							.compareToIgnoreCase(dicc.get(k - 1).getOrigen()) < 0) {
-						Palabra2 aux = dicc.get(k);
-
-						dicc.set(k - 1, dicc.get(k));
-						dicc.set(k - 1, aux);
-
-						k--;
+				// ORDENACION - BURBUJA
+				for (int i = dicc.size() - 1; i > 0; i--) {
+					if (dicc.get(i).getOrigen()
+							.compareToIgnoreCase(dicc.get(i - 1).getOrigen()) < 0) {
+						Palabra2 aux = dicc.get(i);
+						dicc.set(i, dicc.get(i - 1));
+						dicc.set(i - 1, aux);
 					}
 				}
 			}
 		}
 
-		return inserted;
+		return action;
 	}
 
 	@Override
@@ -131,14 +149,24 @@ public class DiccLisJava implements Diccionario {
 		return false;
 	}
 
+	/*
+	 * Busqueda secuencial de la palabra de origen s por todo el diccionario
+	 * comprobando 1 a 1 todos los elementos. Se va aumentando un contador en
+	 * cada comparacion que hace. Si llega al final es que no ha encontrado el
+	 * elemento de manera que se devuelve el valor de las comparaciones en
+	 * negativo.
+	 */
 	@Override
 	public int busca(String s) {
 		int comparaciones = 0;
 
 		for (Palabra2 p : dicc) {
-			comparaciones++;
-			if (p.getOrigen().equals(s)) {
-				return comparaciones;
+			if (p != null) {
+				if (p.getOrigen().equals(s)) {
+					return comparaciones + 1;
+				} else {
+					comparaciones++;
+				}
 			}
 		}
 
