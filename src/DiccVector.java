@@ -35,7 +35,7 @@ public class DiccVector implements Diccionario {
 			lenguas = new Vector<Character>(nlenguas);
 			linea = br.readLine();
 			splt = linea.split(" ");
-			
+
 			for (int i = 0; i < splt.length; i++) {
 				lenguas.add(splt[i].charAt(0));
 			}
@@ -48,6 +48,8 @@ public class DiccVector implements Diccionario {
 				inserta(palabra);
 				linea = br.readLine();
 			}
+		} catch (NumberFormatException e) {
+			System.out.println(e.getMessage());
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
@@ -80,7 +82,7 @@ public class DiccVector implements Diccionario {
 					for (int i = 0; i < dicc.size(); i++) {
 						if (!inserted) {
 							if (dicc.get(i) == null) {
-								dicc.setElementAt(p, i); // lo inserto.
+								dicc.set(i, p);
 								posicion = i;
 								inserted = true;
 							}
