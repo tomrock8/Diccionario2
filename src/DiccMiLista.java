@@ -26,7 +26,7 @@ public class DiccMiLista implements Diccionario {
 			next = n;
 		}
 
-		public void setParabra2(Palabra2 p) {
+		public void setPalabra2(Palabra2 p) {
 			pal = p;
 		}
 
@@ -106,8 +106,7 @@ public class DiccMiLista implements Diccionario {
 
 	@Override
 	public boolean inserta(Palabra2 p) {
-		boolean action = false;
-
+		
 		if (p != null && !p.getOrigen().equalsIgnoreCase("")) {
 
 			// TIENEN QUE SER LAS MISMAS LENGUAS EN EL MISMO ORDEN
@@ -119,24 +118,39 @@ public class DiccMiLista implements Diccionario {
 
 			NodoL next = dicc;
 			NodoL actual = null;
-			while (next != null && !action) {
+			
+			//PRIMER ELEMENTO
+			if(nElementos() == 0){
+				dicc.setPalabra2(p);
+				return true;
+			}
+			
+			while (next != null) {
 
 				// COMPROBAR SI SON EXACTAMENTE IGUALES
-				if (p.toString().equalsIgnoreCase(
-						next.getPalabra2().getOrigen()))
-					return false;
+				if (next.getPalabra2() != null) {
+					if (p.toString().equalsIgnoreCase(
+							next.getPalabra2().getOrigen()))
+						return false;
+				}
 
-				if (next.getPalabra2() != null
-						&& next.getPalabra2().getOrigen()
-								.equalsIgnoreCase(p.getOrigen())) {
+				//COMPROBAR SI ESTA EN EL DICCIONARIO
+				if (next.getPalabra2() != null && next.getPalabra2().getOrigen().equalsIgnoreCase(p.getOrigen())) {
 					Palabra2 palabra = next.getPalabra2();
-					action = palabra.modTrad(p);
+					boolean action = palabra.modTrad(p);
 					return action;
 				} else {
 					if (next.getPalabra2() != null) {
-						if (next.getPalabra2().getOrigen()
-								.compareToIgnoreCase(p.getOrigen()) > 0) {
-							return false;
+						if (next.getPalabra2().getOrigen().compareToIgnoreCase(p.getOrigen()) > 0) {
+							// SE INSERTA
+							NodoL aux = new NodoL(p);
+							if (actual == null) {
+								dicc = aux;
+							} else {
+								actual.cambiaNext(aux);
+							}
+							aux.cambiaNext(next);
+							return true;
 						}
 					} else {
 						actual = next;
@@ -144,21 +158,9 @@ public class DiccMiLista implements Diccionario {
 					}
 				}
 			}
-
-			if (!action) {
-				action = true;
-				NodoL aux = new NodoL(p);
-				if (actual == null) {
-					dicc = aux;
-				} else {
-					actual.cambiaNext(aux);
-				}
-				aux.cambiaNext(next);
-			}
-
 		}
 
-		return action;
+		return false;
 
 	}
 
