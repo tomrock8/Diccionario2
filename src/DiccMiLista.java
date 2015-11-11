@@ -106,7 +106,7 @@ public class DiccMiLista implements Diccionario {
 
 	@Override
 	public boolean inserta(Palabra2 p) {
-		
+
 		if (p != null && !p.getOrigen().equalsIgnoreCase("")) {
 
 			// TIENEN QUE SER LAS MISMAS LENGUAS EN EL MISMO ORDEN
@@ -118,30 +118,30 @@ public class DiccMiLista implements Diccionario {
 
 			NodoL next = dicc;
 			NodoL actual = null;
-			
-			//PRIMER ELEMENTO
-			if(nElementos() == 0){
-				dicc.setPalabra2(p);
+
+			// PRIMER ELEMENTO
+			if (next.getPalabra2() == null) {
+				next.setPalabra2(p);
 				return true;
 			}
-			
-			while (next != null) {
 
-				// COMPROBAR SI SON EXACTAMENTE IGUALES
+			while (next != null) {
 				if (next.getPalabra2() != null) {
+
+					// COMPROBAR SI SON EXACTAMENTE IGUALES
 					if (p.toString().equalsIgnoreCase(
 							next.getPalabra2().getOrigen()))
 						return false;
-				}
 
-				//COMPROBAR SI ESTA EN EL DICCIONARIO
-				if (next.getPalabra2() != null && next.getPalabra2().getOrigen().equalsIgnoreCase(p.getOrigen())) {
-					Palabra2 palabra = next.getPalabra2();
-					boolean action = palabra.modTrad(p);
-					return action;
-				} else {
-					if (next.getPalabra2() != null) {
-						if (next.getPalabra2().getOrigen().compareToIgnoreCase(p.getOrigen()) > 0) {
+					// COMPROBAR SI ESTA EN EL DICCIONARIO
+					if (next.getPalabra2().getOrigen()
+							.equalsIgnoreCase(p.getOrigen())) {
+						Palabra2 palabra = next.getPalabra2();
+						boolean action = palabra.modTrad(p);
+						return action;
+					} else {
+						if (next.getPalabra2().getOrigen()
+								.compareToIgnoreCase(p.getOrigen()) > 0) {
 							// SE INSERTA
 							NodoL aux = new NodoL(p);
 							if (actual == null) {
@@ -151,10 +151,17 @@ public class DiccMiLista implements Diccionario {
 							}
 							aux.cambiaNext(next);
 							return true;
+						} else {
+							actual = next;
+							next = next.getNext();
+
+							// ULTIMA POSICION
+							if (next == null) {
+								NodoL aux = new NodoL(p);
+								actual.cambiaNext(aux);
+							}
 						}
-					} else {
-						actual = next;
-						next = next.getNext();
+
 					}
 				}
 			}
