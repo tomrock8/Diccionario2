@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
 
-
 public class DiccMiLista implements Diccionario {
 
 	private class NodoL {
@@ -123,16 +122,20 @@ public class DiccMiLista implements Diccionario {
 			while (next != null && !action) {
 
 				// COMPROBAR SI SON EXACTAMENTE IGUALES
-				if (p.toString().equalsIgnoreCase(next.getPalabra2().getOrigen()))
+				if (p.toString().equalsIgnoreCase(
+						next.getPalabra2().getOrigen()))
 					return false;
 
-				if (next.getPalabra2() != null && next.getPalabra2().getOrigen().equalsIgnoreCase(p.getOrigen())) {
+				if (next.getPalabra2() != null
+						&& next.getPalabra2().getOrigen()
+								.equalsIgnoreCase(p.getOrigen())) {
 					Palabra2 palabra = next.getPalabra2();
 					action = palabra.modTrad(p);
 					return action;
 				} else {
 					if (next.getPalabra2() != null) {
-						if (next.getPalabra2().getOrigen().compareToIgnoreCase(p.getOrigen()) > 0) {
+						if (next.getPalabra2().getOrigen()
+								.compareToIgnoreCase(p.getOrigen()) > 0) {
 							return false;
 						}
 					} else {
@@ -222,7 +225,21 @@ public class DiccMiLista implements Diccionario {
 
 	@Override
 	public String traduce(String s, char l) {
-		// TODO Auto-generated method stub
+		if (s != null) {
+			NodoL next = dicc;
+
+			while (next != null) {
+				if (next.getPalabra2().getOrigen().equalsIgnoreCase(s)) {
+					return next.getPalabra2().getTraduccion(l);
+				} else {
+					if (next.getPalabra2().getOrigen().compareToIgnoreCase(s) > 0) {
+						return null;
+					} else {
+						next = next.getNext();
+					}
+				}
+			}
+		}
 		return null;
 	}
 
