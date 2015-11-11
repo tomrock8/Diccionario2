@@ -1,4 +1,3 @@
-
 //DNI 15418068 GONZALEZ COBO, ANGEL
 
 import java.io.BufferedReader;
@@ -83,12 +82,16 @@ public class ListaBilingue {
     }
 
     public boolean inserta(String o, String d) {
-        NodoLD ndl = new NodoLD(o, d);
-        boolean a, b;
-        a = insertaOrigen(ndl);
-        b = insertaDestino(ndl);
-
-        return (a && b) ? true : false;
+        String traduccion = buscaO(o);
+        if(traduccion != null && traduccion.equalsIgnoreCase(d)){
+            return false;
+        }
+        else{
+            NodoLD aux = new NodoLD(o, d);
+            insertaOrigen(aux);
+            insertaDestino(aux);
+            return true;
+        }
     }
 
     private boolean insertaOrigen(NodoLD ptN) {
@@ -142,10 +145,40 @@ public class ListaBilingue {
     }
 
     public String buscaO(String s) {
+        NodoLD next = diccO;
+        while(next != null){
+            int compare = next.getOrigen().compareToIgnoreCase(s);
+            if(compare == 0){
+                return next.getDestino();
+            }
+            else{
+                if(compare < 0){
+                    next = next.getNextOrigen();
+                }
+                else{
+                    return null;
+                }
+            }
+        }
         return null;
     }
 
     public String buscaD(String s) {
+        NodoLD next = diccD;
+        while(next != null){
+            int compare = next.getDestino().compareToIgnoreCase(s);
+            if(compare == 0){
+                return next.getOrigen();
+            }
+            else{
+                if(compare < 0){
+                    next = next.getNextDestino();
+                }
+                else{
+                    return null;
+                }
+            }
+        }
         return null;
     }
 
