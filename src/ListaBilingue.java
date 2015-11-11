@@ -5,5 +5,4 @@ public class ListaBilingue {
     private class NodoLD{
         
     }
-
 }
