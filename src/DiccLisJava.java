@@ -19,15 +19,15 @@ public class DiccLisJava implements Diccionario {
 		dicc = new ArrayList<Palabra2>();
 	}
 
-	/*
-	 * Se crea un buffer para leer el archivo que se pasa por parametro. El
-	 * formato del archivo sera: 1º Linea el numero de idiomas de traduccion. La
-	 * 2º linea contiene las iniciales del idioma a traducir. Seguidamente las
-	 * lineas con las palabras. Se abre un buffer que coge la primera linea y la
-	 * trata como numero. La segunda linea la separa por espacios y guarda las
-	 * letras. Despues se forman las palabras a partir de la linea del archivo y
-	 * se inserta en el diccionario. Por ultimo se cierra el buffer.
-	 */
+    /*
+     * Se crea un buffer para leer el archivo que se pasa por parametro. El
+     * formato del archivo sera: Linea 1 el numero de idiomas de traduccion. La
+     * linea 2 contiene las iniciales del idioma a traducir. Seguidamente las
+     * lineas con las palabras. Se abre un buffer que coge la primera linea y la
+     * trata como numero. La segunda linea la separa por espacios y guarda las
+     * letras. Despues se forman las palabras a partir de la linea del archivo y
+     * se inserta en el diccionario. Por ultimo se cierra el buffer.
+     */
 	@Override
 	public void leeDiccionario(String f) {
 		BufferedReader br = null;
@@ -36,10 +36,10 @@ public class DiccLisJava implements Diccionario {
 		Palabra2 palabra;
 		try {
 			br = new BufferedReader(new FileReader(f));
-			String linea = br.readLine(); // 1º LINEA - NUMERO LENGUAS
+			String linea = br.readLine(); // LINEA 1 - NUMERO LENGUAS
 			nlenguas = Integer.parseInt(linea);
 
-			// 2º LINEA - INICIALES DE LAS TRADUCCIONES
+			// LINEA 2 - INICIALES DE LAS TRADUCCIONES
 			// - 0 -- 1 -- 2
 			// ["E", "F", "P"]
 			lenguas = new Vector<Character>(nlenguas);
