@@ -18,6 +18,15 @@ public class DiccVector implements Diccionario {
 		dicc = new Vector<Palabra2>();
 	}
 
+	/*
+	 * Se crea un buffer para leer el archivo que se pasa por parametro. El
+	 * formato del archivo sera: 1º Linea el numero de idiomas de traduccion. La
+	 * 2º linea contiene las iniciales del idioma a traducir. Seguidamente las
+	 * lineas con las palabras. Se abre un buffer que coge la primera linea y la
+	 * trata como numero. La segunda linea la separa por espacios y guarda las
+	 * letras. Despues se forman las palabras a partir de la linea del archivo y
+	 * se inserta en el diccionario. Por ultimo se cierra el buffer.
+	 */
 	@Override
 	public void leeDiccionario(String f) {
 		BufferedReader br = null;
@@ -54,6 +63,12 @@ public class DiccVector implements Diccionario {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
+		} finally {
+			try {
+				br.close();
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
@@ -148,11 +163,10 @@ public class DiccVector implements Diccionario {
 	}
 
 	/*
-	 * Busqueda secuencial de la palabra de origen s por todo el diccionario
-	 * comprobando 1 a 1 todos los elementos. Se va aumentando un contador en
-	 * cada comparacion que hace. Si llega al final es que no ha encontrado el
-	 * elemento de manera que se devuelve el valor de las comparaciones en
-	 * negativo.
+	 * Busca secuencial de la palabra en el diccionario. Ya que el diccionario
+	 * esta ordenado comprueba que la siguiente palabra no sea mayor. Si es
+	 * menor sigue buscando. Si es mayor, significa que ya no va a estar y
+	 * devuelve el numero negativo de comparaciones.
 	 */
 	@Override
 	public int busca(String s) {
@@ -160,10 +174,15 @@ public class DiccVector implements Diccionario {
 
 		for (Palabra2 p : dicc) {
 			if (p != null) {
-				if (p.getOrigen().equals(s)) {
+				int compare = p.getOrigen().compareTo(s);
+				if (compare == 0) {
 					return comparaciones + 1;
 				} else {
-					comparaciones++;
+					if (compare > 0) {
+						comparaciones++;
+					} else {
+						return comparaciones * (-1);
+					}
 				}
 			}
 		}
