@@ -5,12 +5,13 @@ public class ConsultaAcepciones {
 		if (args.length == 2) {
 			ListaBilingue lb = new ListaBilingue();
 			lb.leeDiccionario(args[0]);
-
+			System.out.println("SALIDA");
 			switch (args[1].charAt(0)) {
 			case 'O':
 				lb.visualizaO();
 				break;
 			case 'D':
+			    
 				lb.visualizaD();
 				break;
 			default:
