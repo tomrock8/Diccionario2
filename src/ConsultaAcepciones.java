@@ -11,11 +11,7 @@ public class ConsultaAcepciones {
                 lb.visualizaO();
                 break;
             case 'D':
-
                 lb.visualizaD();
-                break;
-            default:
-                System.out.println("No existe");
                 break;
             }
         }
