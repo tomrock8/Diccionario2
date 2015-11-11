@@ -106,8 +106,75 @@ public class DiccMiLista implements Diccionario {
 
 	@Override
 	public boolean inserta(Palabra2 p) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean insertado, encontrado, mayor;
+		NodoL ptL, ptA, ptN;
+		Palabra2 palabra;
+		insertado = false;
+		// comprobamos que la palabra no es null.
+		if (p != null && p.getOrigen().equalsIgnoreCase("") == false) {
+			boolean iguales;
+			char[] lenguasPalabraNueva = p.getLenguas();
+			// comprobamos que la palabra tiene las mismas lenguas que el
+			// diccionario.
+			if (lenguasPalabraNueva.length == lenguas.size()) {
+				iguales = true;
+				for (int i = 0; i < lenguas.size() && iguales; i++) {
+					if (lenguasPalabraNueva[i] != lenguas.get(i)) {
+						iguales = false;
+					}
+				}
+				if (iguales) {
+					// buscamos la palabra en la lista.
+					ptA = null;
+					ptL = dicc;
+					encontrado = false;
+					mayor = false;
+					while (ptL != null && !encontrado && !mayor) {
+						if (ptL.getPalabra2().getOrigen()
+								.equalsIgnoreCase(p.getOrigen())) {
+							encontrado = true;
+							int pos;
+							// actualizar las traducciones del diccionario que
+							// ya hay.
+							palabra = ptL.getPalabra2();
+							for (int i = 0; i < lenguas.size(); i++) {
+								if (p.getTraduccion(lenguas.get(i)) != null
+										&& p.getTraduccion(lenguas.get(i))
+												.equals("") == false) {
+									pos = palabra.setTrad(
+											p.getTraduccion(lenguas.get(i)),
+											lenguas.get(i));
+									if (pos != -1) {
+										insertado = true;
+									}
+								}
+							}
+						} else {
+							if (ptL.getPalabra2().getOrigen()
+									.compareToIgnoreCase(p.getOrigen()) > 0) {
+								mayor = true;
+							} else {
+								ptA = ptL;
+								ptL = ptL.getNext();
+							}
+						}
+					}
+
+					if (!encontrado) {
+						insertado = true;
+						ptN = new NodoL(p);
+						if (ptA == null) {
+							dicc = ptN;
+						} else {
+							ptA.cambiaNext(ptN);
+						}
+						ptN.cambiaNext(ptL);
+					}
+				}
+			}
+		}
+		return insertado;
+
 	}
 
 	/**

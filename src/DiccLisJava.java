@@ -93,6 +93,14 @@ public class DiccLisJava implements Diccionario {
 		boolean action = false;
 
 		if (p != null) {
+			
+			//TIENEN QUE SER LAS MISMAS LENGUAS EN EL MISMO ORDEN
+			for(int i = 0; i < lenguas.size(); i++){
+				if(p.getLenguas()[i] != lenguas.get(i)){
+					return false;
+				}
+			}
+			
 			if (p.getOrigen().equalsIgnoreCase("") == false) {
 				for (int i = 0; i < dicc.size(); i++) {
 					if (dicc.get(i) != null && !action) {
