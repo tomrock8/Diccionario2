@@ -1,5 +1,4 @@
-//Angel Gonzalez
-
+//DNI 15418068 GONZALEZ COBO, ANGEL
 
 public class ConsultaAcepciones {
 	public static void main(String [] args){

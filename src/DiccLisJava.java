@@ -92,7 +92,7 @@ public class DiccLisJava implements Diccionario {
 	public boolean inserta(Palabra2 p) {
 		boolean action = false;
 
-		if (p != null) {
+		if (p != null && !p.getOrigen().equalsIgnoreCase("")) {
 			
 			//TIENEN QUE SER LAS MISMAS LENGUAS EN EL MISMO ORDEN
 			for(int i = 0; i < lenguas.size(); i++){
@@ -106,7 +106,7 @@ public class DiccLisJava implements Diccionario {
 					if (dicc.get(i) != null && !action) {
 
 						// COMPROBAR SI SON EXACTAMENTE IGUALES
-						if (p.toString().equals(dicc.get(i).toString()))
+						if (p.toString().equalsIgnoreCase(dicc.get(i).toString()))
 							return false;
 
 						// COMPROBAR SI EXISTE LA PALABRA
@@ -202,7 +202,7 @@ public class DiccLisJava implements Diccionario {
 	@Override
 	public String traduce(String s, char l) {
 		for (Palabra2 p : dicc) {
-			if (p.getOrigen().equals(s)) {
+			if (p.getOrigen().equalsIgnoreCase(s)) {
 				return p.getTraduccion(l);
 			}
 		}

@@ -1,10 +1,11 @@
+//DNI 15418068 GONZALEZ COBO, ANGEL
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
 
-//DNI 15418068 GONZALEZ COBO, ANGEL
 
 public class DiccMiLista implements Diccionario {
 
@@ -106,74 +107,55 @@ public class DiccMiLista implements Diccionario {
 
 	@Override
 	public boolean inserta(Palabra2 p) {
-		boolean insertado, encontrado, mayor;
-		NodoL ptL, ptA, ptN;
-		Palabra2 palabra;
-		insertado = false;
-		// comprobamos que la palabra no es null.
-		if (p != null && p.getOrigen().equalsIgnoreCase("") == false) {
-			boolean iguales;
-			char[] lenguasPalabraNueva = p.getLenguas();
-			// comprobamos que la palabra tiene las mismas lenguas que el
-			// diccionario.
-			if (lenguasPalabraNueva.length == lenguas.size()) {
-				iguales = true;
-				for (int i = 0; i < lenguas.size() && iguales; i++) {
-					if (lenguasPalabraNueva[i] != lenguas.get(i)) {
-						iguales = false;
-					}
-				}
-				if (iguales) {
-					// buscamos la palabra en la lista.
-					ptA = null;
-					ptL = dicc;
-					encontrado = false;
-					mayor = false;
-					while (ptL != null && !encontrado && !mayor) {
-						if (ptL.getPalabra2().getOrigen()
-								.equalsIgnoreCase(p.getOrigen())) {
-							encontrado = true;
-							int pos;
-							// actualizar las traducciones del diccionario que
-							// ya hay.
-							palabra = ptL.getPalabra2();
-							for (int i = 0; i < lenguas.size(); i++) {
-								if (p.getTraduccion(lenguas.get(i)) != null
-										&& p.getTraduccion(lenguas.get(i))
-												.equals("") == false) {
-									pos = palabra.setTrad(
-											p.getTraduccion(lenguas.get(i)),
-											lenguas.get(i));
-									if (pos != -1) {
-										insertado = true;
-									}
-								}
-							}
-						} else {
-							if (ptL.getPalabra2().getOrigen()
-									.compareToIgnoreCase(p.getOrigen()) > 0) {
-								mayor = true;
-							} else {
-								ptA = ptL;
-								ptL = ptL.getNext();
-							}
-						}
-					}
+		boolean action = false;
 
-					if (!encontrado) {
-						insertado = true;
-						ptN = new NodoL(p);
-						if (ptA == null) {
-							dicc = ptN;
-						} else {
-							ptA.cambiaNext(ptN);
+		if (p != null && !p.getOrigen().equalsIgnoreCase("")) {
+
+			// TIENEN QUE SER LAS MISMAS LENGUAS EN EL MISMO ORDEN
+			for (int i = 0; i < lenguas.size(); i++) {
+				if (p.getLenguas()[i] != lenguas.get(i)) {
+					return false;
+				}
+			}
+
+			NodoL next = dicc;
+			NodoL actual = null;
+			while (next != null && !action) {
+
+				// COMPROBAR SI SON EXACTAMENTE IGUALES
+				if (p.toString().equalsIgnoreCase(next.getPalabra2().getOrigen()))
+					return false;
+
+				if (next.getPalabra2() != null && next.getPalabra2().getOrigen().equalsIgnoreCase(p.getOrigen())) {
+					Palabra2 palabra = next.getPalabra2();
+					action = palabra.modTrad(p);
+					return action;
+				} else {
+					if (next.getPalabra2() != null) {
+						if (next.getPalabra2().getOrigen().compareToIgnoreCase(p.getOrigen()) > 0) {
+							return false;
 						}
-						ptN.cambiaNext(ptL);
+					} else {
+						actual = next;
+						next = next.getNext();
 					}
 				}
 			}
+
+			if (!action) {
+				action = true;
+				NodoL aux = new NodoL(p);
+				if (actual == null) {
+					dicc = aux;
+				} else {
+					actual.cambiaNext(aux);
+				}
+				aux.cambiaNext(next);
+			}
+
 		}
-		return insertado;
+
+		return action;
 
 	}
 
@@ -248,7 +230,7 @@ public class DiccMiLista implements Diccionario {
 	public void visualiza() {
 		NodoL next = dicc;
 
-		while (next != null) {
+		while (next != null && next.getPalabra2() != null) {
 			next.getPalabra2().escribeInfo();
 			next = next.getNext();
 		}
