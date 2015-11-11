@@ -84,47 +84,4 @@ public interface Diccionario {
 	 */
 	public void visualiza(int j, char l);
 
-	/**
-	 * Conversor de la clase Vector<Character> a un array de Char
-	 * 
-	 * @param vector
-	 *            Vector a convertir
-	 * @return char[] resultado de convertir el vector
-	 */
-	public static char[] CVectorToCArray(Vector<Character> vector) {
-		char[] array = new char[vector.size()];
-
-		for (int i = 0; i < vector.size(); i++)
-			array[i] = vector.get(i);
-
-		return array;
-	}
-
-	/**
-	 * Metodo para tratar la linea completa y formar la palabra. Sistema para
-	 * repetir codigo innecesario en las distintas clases y accesible desde las
-	 * implementaciones.
-	 * 
-	 * @param linea
-	 *            String con la linea leida del archivo.
-	 * @param lenguas
-	 *            Lenguas de traduccion de la linea.
-	 * @return Palabra resultante de la linea con las traducciones.
-	 */
-	public static Palabra2 formaPalabra(char[] lenguas, String linea) {
-		Palabra2 p = null;
-		String[] splt = linea.split("[ ]*\\*[ ]*");
-		String origen = splt[0];
-
-		p = new Palabra2(origen, lenguas);
-		for (int i = 1; i < splt.length; i++) {
-			if (splt[i].equalsIgnoreCase("") == false) {
-				String palabra = splt[i];
-				char l = lenguas[i - 1];
-
-				p.setTrad(palabra, l);
-			}
-		}
-		return p;
-	}
 }

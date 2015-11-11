@@ -84,7 +84,7 @@ public class DiccMiLista implements Diccionario {
             // LINEAS CON LAS PALABRAS
             linea = br.readLine();
             while (linea != null) {
-                palabra = Diccionario.formaPalabra(Diccionario.CVectorToCArray(lenguas), linea);
+                palabra = DiccVector.formaPalabra(DiccVector.CVectorToCArray(lenguas), linea);
                 inserta(palabra);
                 linea = br.readLine();
             }
