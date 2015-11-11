@@ -1,4 +1,3 @@
-
 //DNI 15418068 GONZALEZ COBO, ANGEL
 
 import java.io.BufferedReader;
@@ -231,11 +230,10 @@ public class DiccVector implements Diccionario {
             dicc.get(i).escribeInfo(l);
         }
     }
-    
-    
 
     /**
-     * Conversor de la clase Vector<Character> a un array de Char
+     * Conversor de la clase Vector<Character> a un array de Char. Creado para
+     * evitar la repeticion de codigo innecesaria entre las distintas clases.
      * 
      * @param vector
      *            Vector a convertir
@@ -251,7 +249,7 @@ public class DiccVector implements Diccionario {
     }
 
     /**
-     * Metodo para tratar la linea completa y formar la palabra. Sistema para
+     * Metodo para tratar la linea completa y formar la palabra. Sistema para no
      * repetir codigo innecesario en las distintas clases y accesible desde las
      * implementaciones.
      * 

@@ -1,4 +1,3 @@
-
 //DNI 15418068 GONZALEZ COBO, ANGEL
 
 import java.util.Vector;
@@ -57,8 +56,8 @@ public class Palabra2 {
 
         if (pos != -1) {
             try {
-                if(trad.get(pos) != null){
-                    if(trad.get(pos).equalsIgnoreCase(t))
+                if (trad.get(pos) != null) {
+                    if (trad.get(pos).equalsIgnoreCase(t))
                         return -1;
                 }
                 trad.setElementAt(t, pos);

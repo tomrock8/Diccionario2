@@ -1,7 +1,5 @@
 //DNI 15418068 GONZALEZ COBO, ANGEL
 
-import java.util.Vector;
-
 public interface Diccionario {
 
 	/**

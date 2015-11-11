@@ -49,7 +49,6 @@ public class ListaBilingue {
 	private NodoLD diccO, diccD;
 	
 	public ListaBilingue() {
-
 	}
 
 	public void leeDiccionario(String f) {

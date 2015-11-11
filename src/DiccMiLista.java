@@ -1,4 +1,3 @@
-
 //DNI 15418068 GONZALEZ COBO, ANGEL
 
 import java.io.BufferedReader;
@@ -104,6 +103,16 @@ public class DiccMiLista implements Diccionario {
 
     }
 
+    /*
+     * Se comprueba que la informacion pasada por parametros tenga valor.
+     * Despues se comprueba que el diccionario tenga elementos. Si no tiene se
+     * inserta y termina. Si ya tiene elementos comprueba los elementos para que
+     * no sea exactamente igual la palabra que hay con la que esta pasando. En
+     * caso que se encuentre en el diccionario se llamara la funcion que
+     * modifica todas las traducciones. En caso que no este se comprueba que la
+     * palabra tenga un valor inferior en el alfabeto. Si es inferior se
+     * agregara antes de la siguiente palabra. Si es mayor se insertara despues.
+     */
     @Override
     public boolean inserta(Palabra2 p) {
 
@@ -202,7 +211,9 @@ public class DiccMiLista implements Diccionario {
     /**
      * Busqueda secuencial del arbol completo. Se va comprobando cada elemento,
      * y si no es el siguiente, se adelanta y se aumenta el contador de
-     * comparaciones.
+     * comparaciones. Se utiliza el valor sintactico de este, de manera que si
+     * el valor que se busca, esta despues de la palabra que se ha comprobado
+     * significa que no va a estar y termina la busqueda.
      */
     @Override
     public int busca(String s) {
