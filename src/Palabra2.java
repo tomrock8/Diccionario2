@@ -186,7 +186,8 @@ public class Palabra2 {
      * 
      * @return String con la palabra separada con ":" con cada traduccion
      */
-    public String toString() {
+    @Override
+	public String toString() {
         String result = "";
 
         result += origen;
